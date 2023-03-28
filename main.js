@@ -46,12 +46,12 @@ recognition.onresult = async (event) => {
           }
         } else {
           const utterance = new SpeechSynthesisUtterance(response);
-          utterance.lang = 'pt-BR'; // definir o idioma da fala
+          utterance.lang = 'pt-BR';
           utterance.voice = synth
             .getVoices()
-            .find((voice) => voice.name === 'Google português do Brasil, feminino'); // escolher uma voz disponível
-          utterance.rate = 1.4; // diminuir a velocidade da fala
-          utterance.pitch = 1.0; // aumentar o tom da fala
+            .find((voice) => voice.name === 'Google português do Brasil, feminino');
+          utterance.rate = 1.4;
+          utterance.pitch = 1.0;
           utterance.onstart = () => {
             recognition.stop();
           };
@@ -61,13 +61,6 @@ recognition.onresult = async (event) => {
           synth.speak(utterance);
         }
         console.log('GPT-4 respondeu:', response);
-        // responsiveVoice.onstart = () => {
-        //   recognition.stop();
-        // };
-        // responsiveVoice.onend = () => {
-        //   recognition.start();
-        // };
-        // responsiveVoice.speak(response, 'Brazilian Portuguese Female');
       }
     }
   }
