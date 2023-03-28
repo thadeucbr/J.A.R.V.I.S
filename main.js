@@ -1,11 +1,10 @@
 import getGPT4Response from './gpt4.js';
 
+let isListening = false;
+
 const output = document.getElementById('output');
 
 const synth = window.speechSynthesis;
-
-const startButton = document.getElementById('start');
-const stopButton = document.getElementById('stop');
 
 const recognition = new webkitSpeechRecognition();
 recognition.continuous = true;
@@ -17,7 +16,17 @@ recognition.onresult = async (event) => {
     const transcript = event.results[i][0].transcript.trim();
     if (event.results[i].isFinal) {
       console.log(transcript)
-      if (transcript.toLowerCase().includes('gpt')) {
+      if (transcript.toLowerCase() === 'jarvis escute') {
+        if (!isListening) {
+          isListening = true;
+          console.log('Reconhecimento de voz ativado');
+        }
+      } else if (transcript.toLowerCase() === 'jarvis pare') {
+        if (isListening) {
+          isListening = false;
+          console.log('Reconhecimento de voz desativado');
+        }
+      } else if (isListening && transcript.toLowerCase().includes('gpt')) {
         console.log('Você disse:', transcript);
         const response = await getGPT4Response(transcript);
         if (response.includes('`')) {
@@ -64,10 +73,4 @@ recognition.onresult = async (event) => {
   }
 };
 
-startButton.addEventListener('click', () => {
-  recognition.start();
-});
-
-stopButton.addEventListener('click', () => {
-  recognition.stop();
-});
+recognition.start();
