@@ -1,7 +1,8 @@
 import getGPT4Response from './gpt4.js';
-
+import { getHomebridgeToken } from './homebridge.js';
 let isListening = false;
 
+console.log(getHomebridgeToken())
 const output = document.getElementById('output');
 
 const synth = window.speechSynthesis;
