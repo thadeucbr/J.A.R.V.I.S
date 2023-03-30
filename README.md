@@ -22,7 +22,6 @@ J.A.R.V.I.S. is a virtual assistant implementation inspired by the AI personal a
 4. Say "jarvis listen" to activate speech recognition.
 5. Say "GPT" followed by your question or command. For example, "GPT, what's the weather like today?"
 6. The J.A.R.V.I.S. virtual assistant will respond using the GPT-4 API and the voice selected in the browser.
-7. Click the "Stop" button to deactivate speech recognition.
 
 ## Contributing
 
