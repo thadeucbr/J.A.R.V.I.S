@@ -1,4 +1,4 @@
-import getGPT4Response from '../gpt4.js';
+import getGPT4Response from './gpt4.js';
 
 const intentionsContext = [
   { role: "system", content: `Você é um assistente de IA treinado para identificar a itenção (ação) do comando do usuário correspondente:
@@ -12,7 +12,7 @@ const intentionsContext = [
 ];
 async function detectIntent(userInput) {
   intentionsContext.push({ role: 'user', content: userInput})
-  const gptResponse = await getGPT4Response(prompt);
+  const gptResponse = await getGPT4Response(intentionsContext);
   intentionsContext.push({role: "system", content: gptResponse})
   console.log(intentionsContext)
   return { gptResponse, userInput };
