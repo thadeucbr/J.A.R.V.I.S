@@ -2,6 +2,7 @@ import detectIntent from './intentions.js';
 import getGPT4Response from './gpt4.js';
 import { speak } from './voice.js';
 import { activateJarvis, deactivateJarvis } from './core/jarvisControl.js';
+import { displayUserMessage, displayGPTMessage } from './chat.js';
 let isListening = false;
 
 const output = document.getElementById('output');
@@ -26,26 +27,9 @@ recognition.onresult = async (event) => {
         }
       } else if (isListening && transcript.toLowerCase().includes('gpt')) {
         console.log('Você disse:', transcript);
+        displayUserMessage(transcript); // Exibe a mensagem do usuário
         const response = await getGPT4Response(transcript);
-        if (response.includes('`')) {
-          const codeRegex = /`([^`]+)`/g;
-          const codeMatch = response.match(codeRegex);
-
-          if (codeMatch && codeMatch.length > 0) {
-            const code = codeMatch[0];
-
-            output.innerHTML = `
-          <div class="message received">
-            <div class="message-content">
-              <div class="code">${code}</div>
-            </div>
-          </div>
-        `;
-          }
-        } else {
-          speak(response);
-          console.log('GPT-4 respondeu:', response);
-        }
+        displayGPTMessage(response); // Exibe a mensagem do GPT
       }
     }
   }
