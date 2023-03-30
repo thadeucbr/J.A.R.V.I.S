@@ -1,6 +1,7 @@
 import detectIntent from './intentions.js';
 import getGPT4Response from './gpt4.js';
 import { speak } from './voice.js';
+import { activateJarvis, deactivateJarvis } from './core/jarvisControl.js';
 let isListening = false;
 
 const output = document.getElementById('output');
@@ -17,13 +18,11 @@ recognition.onresult = async (event) => {
       const intention = await detectIntent(transcript);
       if (transcript.toLowerCase() === 'jarvis escute') {
         if (!isListening) {
-          isListening = true;
-          console.log('Reconhecimento de voz ativado');
+          isListening = activateJarvis();
         }
       } else if (transcript.toLowerCase() === 'jarvis pare') {
         if (isListening) {
-          isListening = false;
-          console.log('Reconhecimento de voz desativado');
+          isListening = deactivateJarvis();
         }
       } else if (isListening && transcript.toLowerCase().includes('gpt')) {
         console.log('Você disse:', transcript);
