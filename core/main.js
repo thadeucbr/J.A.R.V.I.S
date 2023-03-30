@@ -1,4 +1,5 @@
-import getGPT4Response from './gpt4.js';
+import detectIntent from './intentions.js';
+import getGPT4Response from '../gpt4.js';
 let isListening = false;
 
 const output = document.getElementById('output');
@@ -14,7 +15,8 @@ recognition.onresult = async (event) => {
   for (let i = event.resultIndex; i < event.results.length; i++) {
     const transcript = event.results[i][0].transcript.trim();
     if (event.results[i].isFinal) {
-      console.log(transcript)
+      const intention = await detectIntent(transcript);
+      console.log(intention)
       if (transcript.toLowerCase() === 'jarvis escute') {
         if (!isListening) {
           isListening = true;
