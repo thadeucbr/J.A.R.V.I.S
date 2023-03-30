@@ -1,10 +1,9 @@
 import detectIntent from './intentions.js';
-import getGPT4Response from '../gpt4.js';
+import getGPT4Response from './gpt4.js';
+import { speak } from './voice.js';
 let isListening = false;
 
 const output = document.getElementById('output');
-
-const synth = window.speechSynthesis;
 
 const recognition = new webkitSpeechRecognition();
 recognition.continuous = true;
@@ -16,7 +15,6 @@ recognition.onresult = async (event) => {
     const transcript = event.results[i][0].transcript.trim();
     if (event.results[i].isFinal) {
       const intention = await detectIntent(transcript);
-      console.log(intention)
       if (transcript.toLowerCase() === 'jarvis escute') {
         if (!isListening) {
           isListening = true;
@@ -46,22 +44,9 @@ recognition.onresult = async (event) => {
         `;
           }
         } else {
-          const utterance = new SpeechSynthesisUtterance(response);
-          utterance.lang = 'pt-BR';
-          utterance.voice = synth
-            .getVoices()
-            .find((voice) => voice.name === 'Google português do Brasil, feminino');
-          utterance.rate = 1.4;
-          utterance.pitch = 1.0;
-          utterance.onstart = () => {
-            recognition.stop();
-          };
-          utterance.onend = () => {
-            recognition.start();
-          };
-          synth.speak(utterance);
+          speak(response);
+          console.log('GPT-4 respondeu:', response);
         }
-        console.log('GPT-4 respondeu:', response);
       }
     }
   }
