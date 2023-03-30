@@ -12,7 +12,7 @@ const intentionsContext = [
 ];
 async function detectIntent(userInput) {
   intentionsContext.push({ role: 'user', content: userInput})
-  const gptResponse = await getGPT4Response(prompt);
+  const gptResponse = await getGPT4Response(intentionsContext);
   intentionsContext.push({role: "system", content: gptResponse})
   console.log(intentionsContext)
   return { gptResponse, userInput };
