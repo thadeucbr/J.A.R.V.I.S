@@ -1,6 +1,6 @@
 const axios = window.axios;
 
-import { API_KEY } from './apikey.js';
+import { API_KEY } from '../apikey.js';
 
 const messages = [
   // { role: "system", content: "Você é um assistente de IA treinado para responder perguntas." }

@@ -1,5 +1,5 @@
 import detectIntent from './intentions.js';
-import getGPT4Response from '../gpt4.js';
+import getGPT4Response from './gpt4.js';
 let isListening = false;
 
 const output = document.getElementById('output');

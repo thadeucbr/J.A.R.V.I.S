@@ -1,4 +1,4 @@
-import getGPT4Response from '../gpt4.js';
+import getGPT4Response from './gpt4.js';
 
 const intentionsContext = [
   { role: "system", content: `Você é um assistente de IA treinado para identificar a itenção (ação) do comando do usuário correspondente:
