@@ -2,11 +2,7 @@ const axios = window.axios;
 
 import { API_KEY } from '../apikey.js';
 
-const messages = [
-  // { role: "system", content: "Você é um assistente de IA treinado para responder perguntas." }
-];
-async function getGPT4Response(prompt) {
-  messages.push({ role: 'user', content: prompt });
+async function getGPT4Response(context) {
   const url = 'https://api.openai.com/v1/chat/completions';
 
   const headers = {
@@ -16,7 +12,7 @@ async function getGPT4Response(prompt) {
 
   const data = {
     model: 'gpt-3.5-turbo',
-    messages,
+    messages: context,
     max_tokens: 200,
     n: 1,
     stop: null,
@@ -26,8 +22,6 @@ async function getGPT4Response(prompt) {
   try {
     const response = await axios.post(url, data, { headers: headers });
     const completion = response.data.choices[0].message.content.trim();
-    messages.push({ role: 'system', content: completion });
-    console.log(messages);
     return completion;
   } catch (error) {
     console.error('Error fetching GPT-4 response:', error);
