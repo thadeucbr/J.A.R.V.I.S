@@ -22,6 +22,7 @@ async function getGPT4Response(context) {
   try {
     const response = await axios.post(url, data, { headers: headers });
     const completion = response.data.choices[0].message.content.trim();
+    console.log(completion)
     return completion;
   } catch (error) {
     console.error('Error fetching GPT-4 response:', error);
