@@ -21,9 +21,8 @@ async function detectIntent(userInput) {
     console.log('ENTROU AQUI!');
     intentionsContext.push({ role: "system", content: gptResponse });
   } else {
-    // Remova a entrada do usuário do contexto, pois não foi identificada uma intenção válida
     intentionsContext.pop();
-    gptResponse = 'general_knowledge'; // Define a intenção padrão como 'general_knowledge'
+    gptResponse = 'general_knowledge';
   }
   console.log(gptResponse);
   return { gptResponse, userInput };

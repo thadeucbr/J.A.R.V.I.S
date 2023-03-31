@@ -23,7 +23,7 @@ function displayGPTMessage(message) {
     const codeMatch = message.match(codeRegex);
 
     if (codeMatch && codeMatch.length > 0) {
-      const code = codeMatch[0].slice(1, -1); // Remove os delimitadores de código (`) antes de exibir
+      const code = codeMatch[0].slice(1, -1);
 
       messageContent = `
         <div class="code">

@@ -1,14 +1,6 @@
 import detectIntent from './intentions.js';
-import getGPT4Response from './gpt4.js';
-import { speak } from './voice.js';
 import executeSkill from '../skills/indexSkills.js';
-import { activateJarvis, deactivateJarvis } from './jarvisControl.js';
 import { displayUserMessage, displayGPTMessage } from './chat.js';
-import generalGPTConversation from '../skills/generalGPT.js';
-
-let isListening = false;
-
-const output = document.getElementById('output');
 
 const recognition = new webkitSpeechRecognition();
 recognition.continuous = true;
@@ -22,9 +14,9 @@ recognition.onresult = async (event) => {
       // if (transcript.toLowerCase().includes('gpt')) {
         const intent = await detectIntent(transcript);
         console.log('Você disse:', intent);
-        displayUserMessage(intent.userInput); // Exibe a mensagem do usuário
+        displayUserMessage(intent.userInput);
         const response = await executeSkill(intent);
-        displayGPTMessage(response); // Exibe a mensagem do GPT
+        displayGPTMessage(response);
       }
     }
   // }
