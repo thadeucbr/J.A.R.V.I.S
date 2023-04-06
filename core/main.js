@@ -1,6 +1,6 @@
 import detectIntent from './intentions.js';
 import executeSkill from '../skills/indexSkills.js';
-import { displayUserMessage, displayGPTMessage } from './chat.js';
+import { processMessage } from './chat.js';
 
 const recognition = new webkitSpeechRecognition();
 recognition.continuous = true;
@@ -13,10 +13,8 @@ recognition.onresult = async (event) => {
     if (event.results[i].isFinal) {
       // if (transcript.toLowerCase().includes('gpt')) {
         const intent = await detectIntent(transcript);
-        console.log('Você disse:', intent);
-        displayUserMessage(intent.userInput);
         const response = await executeSkill(intent);
-        displayGPTMessage(response);
+        processMessage(response, intent)
       }
     }
   // }
