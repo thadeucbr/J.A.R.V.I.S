@@ -1,11 +1,11 @@
-.code {
+/* .code {
   background-color: black;
   border-radius: 6px;
   color: #33ff00;
   margin: 10px 0;
   padding: 10px;
   white-space: pre-wrap;
-}
+} */
 
 .message {
   margin: 10px 0;
@@ -25,20 +25,29 @@
   white-space: pre-wrap;
 }
 
-.code {
+/* .code {
   background-color: #1e1e1e;
   border-radius: 6px;
   color: #dcdcdc;
   margin: 10px 0;
   padding: 10px;
   white-space: pre-wrap;
-}
+} */
 
 /* Estilização adicional para variáveis e funções */
-.code .variable {
+/* .code .variable {
   color: #9cdcfe;
 }
 
 .code .function {
   color: #dcdcaa;
+} */
+
+.hljs,
+.hljs-subst {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #e0e0e0;
+  background-color: black;
 }
