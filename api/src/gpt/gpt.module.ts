@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { GptService } from './gpt.service';
 import { IntentionsService } from './intentions.service';
-import { IntentionsController } from './intentions.controller';
+import { GptController } from './gpt.controller';
 
 @Module({
   providers: [GptService, IntentionsService],
-  controllers: [IntentionsController],
+  controllers: [GptController],
 })
 export class GptModule {}
