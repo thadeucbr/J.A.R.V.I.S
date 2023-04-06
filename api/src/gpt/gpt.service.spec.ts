@@ -3,7 +3,6 @@ import { GptService } from './gpt.service';
 import axios from 'axios';
 
 jest.mock('axios');
-const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 describe('GptService', () => {
   let service: GptService;
@@ -20,29 +19,27 @@ describe('GptService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return a response from GPT-4', async () => {
-    const context = [{ role: 'user', content: 'tell me a joke' }];
+  it('should get GPT-4 response', async () => {
+    const context = [
+      { role: 'system', content: 'Test system message' },
+      { role: 'user', content: 'Test user message' },
+    ];
+    const completion = 'Test GPT-4 completion';
 
-    const mockResponse = {
+    (axios.post as jest.Mock).mockResolvedValue({
       data: {
         choices: [
           {
             message: {
-              content:
-                'Why did the chicken cross the road? To get to the other side!',
+              content: completion,
             },
           },
         ],
       },
-    };
-
-    mockedAxios.post.mockResolvedValue(mockResponse);
+    });
 
     const result = await service.getGPT4Response(context);
-
-    expect(result).toBe(
-      'Why did the chicken cross the road? To get to the other side!',
-    );
-    expect(mockedAxios.post).toHaveBeenCalled();
+    expect(result).toEqual(completion);
+    expect(axios.post).toHaveBeenCalled();
   });
 });
